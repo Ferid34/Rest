@@ -25,6 +25,13 @@ public class AdamRestController {
         System.out.println("adamService.getAllAdams()=="+adamService.getAllAdams());
         return adamService.getAllAdams();
     }
+
+
+
+
+
+
+
 //kohne qayda ile
 /*    @GetMapping("/adams/{id}")
     public ResponseEntity<Adam> getAdam(@PathVariable(name = "id") long id) {
