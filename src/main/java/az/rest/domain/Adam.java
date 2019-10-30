@@ -1,4 +1,4 @@
-package az.rest;
+package az.rest.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

@@ -1,6 +1,7 @@
 package az.rest.service;
 
-import az.rest.Adam;
+import az.rest.domain.Adam;
+import az.rest.domain.Datatable;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,5 +12,10 @@ public interface AdamService {
     boolean updateAdamById(Adam adam);
     boolean deleteAdamById(long id);
     Adam insertAdam(Adam adam);
+
+
+
+
+    Datatable getDataTable(Datatable datatable);
 
 }

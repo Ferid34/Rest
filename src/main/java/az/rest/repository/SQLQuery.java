@@ -7,6 +7,11 @@ public class SQLQuery {
     public static final String INSERT_ADAM = "  insert into adam (name,age) values(?,?) ";
     public static final String DELETE_ADAM = "  update adam set status=0 where id =? ";
 
+    public static final String GET_ADAM_COUNT = "    select count(*) from adam where status=1 ";
+
+
+
+
 
 
 

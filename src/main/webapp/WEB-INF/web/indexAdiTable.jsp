@@ -1,10 +1,11 @@
 <%--
+&lt;%&ndash;
   Created by IntelliJ IDEA.
   User: toshiba
   Date: 10/27/19
   Time: 6:46 PM
   To change this template use File | Settings | File Templates.
---%>
+&ndash;%&gt;
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -48,7 +49,7 @@
     <label>AGE</label><span id="adam_age" class="rows"></span><br/>
 </div>
 <div id="upd_adam" style="display: none">
-    <form><%-- fromun action i yoxdur cunki her json ile gedir--%>
+    <form>&lt;%&ndash; fromun action i yoxdur cunki her json ile gedir&ndash;%&gt;
         <label style="width: 100px">ID</label><input type="text" id="upd_adam_id" class="rows" readonly/><br/>
         <label>NAME</label><input type="text" id="upd_adam_name" class="rows"/><br/>
         <label>AGE</label><input type="text" id="upd_adam_age" class="rows"/><br/>
@@ -260,3 +261,4 @@
 </script>
 
 </html>
+--%>

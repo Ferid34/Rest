@@ -16,7 +16,7 @@ public class WebController {
     public String viewIndexAjax() {
         return "web/indexAdiTable";
     }*/
-    @GetMapping("/ajax")
+    @GetMapping("/")
     public String viewIndexAjax() {
         return "web/index";
     }

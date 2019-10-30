@@ -12,8 +12,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+
+
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
+
     <style>
         #adam-list, th, td {
             border: 1px solid red;
@@ -33,12 +39,17 @@
 
 
 <table id="adam-list">
+    <thead>
     <tr>
         <th>Id</th>
         <th>Name</th>
         <th>Age</th>
         <th>Action</th>
     </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
 
 </table>
 
@@ -251,6 +262,17 @@
     }
 
     $(document).ready(function () {
+        $(document).ready( function () {
+            $('#adam-list').DataTable({
+                "lengthMenu": [[5, 10, 15, -1], [5, 10, 50, "All"]],
+                "processing": true,
+                "serverSide": true,
+                "ajax": baseUrl+"datatable"
+            })
+
+        } );
+
+
         showAdamList();
         createDialog();
     });

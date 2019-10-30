@@ -1,6 +1,6 @@
 package az.rest.repository;
 
-import az.rest.Adam;
+import az.rest.domain.Adam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -8,15 +8,13 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public class AdamReposiotoryImpl implements AdamRepository {
+
 
     private AdamRowMapper adamRowMapper = new AdamRowMapper();
 
@@ -70,6 +68,11 @@ public class AdamReposiotoryImpl implements AdamRepository {
         return adam;
     }
 
+    @Override
+    public int getAdamCount() {
+        return    jdbcTemplate.queryForObject(SQLQuery.GET_ADAM_COUNT,Integer.class);
+
+    }
 
 
     private class AdamRowMapper implements RowMapper<Adam> {

@@ -1,11 +1,10 @@
 package az.rest.restController;
 
-import az.rest.Adam;
+import az.rest.domain.Adam;
+import az.rest.domain.Datatable;
 import az.rest.service.AdamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -24,22 +23,31 @@ public class AdamRestController {
     public List<Adam> getAdamList() {
         return adamService.getAllAdams();
     }
-     //kohne qayda ile
-     /*    @GetMapping("/adams/{id}")
-     public ResponseEntity<Adam> getAdam(@PathVariable(name = "id") long id) {
-        Optional<Adam> adamOptional = adamService.getAdamById(id);
-        ResponseEntity<Adam> entity = null;
-        Adam adam = null;
-        if (adamOptional.isPresent()) {
-            adam = adamOptional.get();
-            entity = new ResponseEntity<>(adam, HttpStatus.OK);
-        }else{
-            entity=new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return entity;
-    }*/
 
-    //yeni qayda ile
+    @GetMapping("/datatable")
+    public Datatable getAdamListDatatable(
+            @RequestParam(name = "draw",required = false,defaultValue = "0") int draw,
+            @RequestParam(name = "start", required = false, defaultValue = "0") int start,
+            @RequestParam(name = "length", required = false, defaultValue = "5") int length,
+            @RequestParam(name = "search[value]", required = false, defaultValue = "") String search,
+            @RequestParam(name = "order[0][column]:", required = false, defaultValue = "0") int col,
+            @RequestParam(name = "order[0][dir]", required = false, defaultValue = "asc") String sortDirection) {
+        Datatable datatable = new Datatable();
+        datatable.setDraw(draw);
+        datatable.setStart(start);
+        datatable.setLength(length);
+        datatable.setSearch(search);
+        datatable.setSortColumn(col);
+        datatable.setSortDirection(sortDirection);
+
+        datatable = adamService.getDataTable(datatable);
+
+        System.out.println("Datatable " + datatable);
+
+
+        return datatable;
+    }
+
     @GetMapping("/{id}")
     public Adam getAdam(@PathVariable(name = "id") long id) {
         Adam adam = null;
@@ -80,32 +88,28 @@ public class AdamRestController {
         System.out.println("Delet adam ");
         boolean success = true;
         try {
-         success=adamService.deleteAdamById(id);
-         if(success){
-             System.out.println("silindi");
-         }
+            success = adamService.deleteAdamById(id);
+            if (success) {
+                System.out.println("silindi");
+            }
         } catch (Exception e) {
             String message = "Error deleting with id  " + id;
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, message);
         }
-        if(!success){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Adam with id "+ id+" not found");
+        if (!success) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Adam with id " + id + " not found");
         }
     }
 
 
-
-
-
-
     @PostMapping("/adam")
     public void addAdam(@RequestBody Adam adam) {
-try{
-    System.out.println("tryin ici");
-    adamService.insertAdam(adam);
-}catch (Exception e){
-    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"Error addin with new adam ");
-}
+        try {
+            System.out.println("tryin ici");
+            adamService.insertAdam(adam);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error addin with new adam ");
+        }
     }
 
 
