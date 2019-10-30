@@ -30,6 +30,13 @@ public class AdamReposiotoryImpl implements AdamRepository {
     }
 
     @Override
+    public List<Adam> getAllAdams(int limit, int offset) {
+        Object[] objects=new Object[]{offset,limit};
+        List<Adam> adamList = jdbcTemplate.query(SQLQuery.GET_ALL_ADAMS_LIMIT_OFSET, objects,adamRowMapper);
+        return adamList;
+    }
+
+    @Override
     public Optional<Adam> getAdamById(long id) {
         Object[] objects = new Object[]{id};
         Optional<Adam> optionalAdam = Optional.empty();

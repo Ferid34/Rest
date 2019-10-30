@@ -33,7 +33,7 @@
     </style>
 </head>
 <body>
-<h1>Bu sehife errlari handle etmek ucundur</h1>
+<h1>Rest et</h1>
 
 <button onclick="addAdam()"> Insert new  Adam </button>
 

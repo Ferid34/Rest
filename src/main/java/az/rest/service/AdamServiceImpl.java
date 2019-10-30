@@ -52,7 +52,7 @@ public class AdamServiceImpl implements AdamService {
         datatable.setRecordsTotal(umumiCount);
         datatable.setRecordsFiltered(datatable.getRecordsTotal());
 
-        List<Adam> adams = adamRepository.getAllAdams();
+        List<Adam> adams = adamRepository.getAllAdams(datatable.getLength(),datatable.getStart());
         datatable.setData(new Object[adams.size()][4]);
         for (int i = 0; i < adams.size(); i++) {
             datatable.getData()[i][0] = adams.get(i).getId();
@@ -63,10 +63,10 @@ public class AdamServiceImpl implements AdamService {
                             " <a onclick='editAdam(" + adams.get(i).getId() + ")'>Edit</a> &nbsp " +
                             " <a onclick='deleteAdam(" + adams.get(i).getId() + ")'>Delete</a>  ";
         }
-
-
         return datatable;
     }
+
+
 
 
 }
