@@ -70,14 +70,6 @@ public class AdamReposiotoryImpl implements AdamRepository {
         return adam;
     }
 
-/*    @Override
-    public Optional<Adam> updateAdamById(Adam adam) {
-        Optional<Adam> optionalAdam = Optional.empty();
-        // update adam set name=?  , age=? where id =?
-        Object[] objects=new Object[]{adam.getName(),adam.getAge(),adam.getId()};
-      optionalAdam=  jdbcTemplate.update(SQLQuery.UPDATE_ADAM_BY_ADAM_ID,objects);
-        return Optional.empty();
-    }*/
 
 
     private class AdamRowMapper implements RowMapper<Adam> {

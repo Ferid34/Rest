@@ -22,12 +22,11 @@ public class AdamRestController {
 
     @GetMapping("/")
     public List<Adam> getAdamList() {
-        System.out.println("adamService.getAllAdams()==" + adamService.getAllAdams());
         return adamService.getAllAdams();
     }
-//kohne qayda ile
-/*    @GetMapping("/adams/{id}")
-    public ResponseEntity<Adam> getAdam(@PathVariable(name = "id") long id) {
+     //kohne qayda ile
+     /*    @GetMapping("/adams/{id}")
+     public ResponseEntity<Adam> getAdam(@PathVariable(name = "id") long id) {
         Optional<Adam> adamOptional = adamService.getAdamById(id);
         ResponseEntity<Adam> entity = null;
         Adam adam = null;
@@ -99,12 +98,15 @@ public class AdamRestController {
 
 
 
-   /* @PostMapping("/register")
-    public ResponseEntity<Boolean> register(@RequestBody Adam adam) {
-
-        System.out.println("postmandan gelen adam  " + adam);
-        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
-    }*/
+    @PostMapping("/adam")
+    public void addAdam(@RequestBody Adam adam) {
+try{
+    System.out.println("tryin ici");
+    adamService.insertAdam(adam);
+}catch (Exception e){
+    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"Error addin with new adam ");
+}
+    }
 
 
 }
