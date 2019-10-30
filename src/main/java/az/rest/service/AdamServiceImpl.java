@@ -25,5 +25,20 @@ public class AdamServiceImpl implements AdamService
         return adamRepository.getAdamById(id);
     }
 
+    @Override
+    public boolean updateAdamById(Adam adam) {
+        return adamRepository.updateAdamById(adam);
+    }
+
+    @Override
+    public boolean deleteAdamById(long id) {
+        return adamRepository.deleteAdamById(id);
+    }
+
+    @Override
+    public Adam insertAdam(Adam adam) {
+        return adamRepository.insertAdam(adam);
+    }
+
 
 }

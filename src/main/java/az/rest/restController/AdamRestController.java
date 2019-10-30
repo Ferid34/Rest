@@ -20,18 +20,11 @@ public class AdamRestController {
     private AdamService adamService;
 
 
-    @GetMapping("/adams")
+    @GetMapping("/")
     public List<Adam> getAdamList() {
-        System.out.println("adamService.getAllAdams()=="+adamService.getAllAdams());
+        System.out.println("adamService.getAllAdams()==" + adamService.getAllAdams());
         return adamService.getAllAdams();
     }
-
-
-
-
-
-
-
 //kohne qayda ile
 /*    @GetMapping("/adams/{id}")
     public ResponseEntity<Adam> getAdam(@PathVariable(name = "id") long id) {
@@ -48,7 +41,7 @@ public class AdamRestController {
     }*/
 
     //yeni qayda ile
-    @GetMapping("/adams/{id}")
+    @GetMapping("/{id}")
     public Adam getAdam(@PathVariable(name = "id") long id) {
         Adam adam = null;
         try {
@@ -66,13 +59,52 @@ public class AdamRestController {
         return adam;
     }
 
+    @PutMapping("/adam")
+    public Adam updateAdam(@RequestBody Adam adam) {
+        System.out.println("adam= " + adam);
+        try {
+            Optional<Adam> adamOptional = adamService.getAdamById(adam.getId());
 
-    @PostMapping("/register")
+            if (adamOptional.isPresent()) {
+                adamService.updateAdamById(adam);
+            } else {
+                adamService.insertAdam(adam);
+            }
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return adam;
+    }
+
+    @DeleteMapping("adam/{id}")
+    public void deleteAdam(@PathVariable(name = "id") long id) {
+        System.out.println("Delet adam ");
+        boolean success = true;
+        try {
+         success=adamService.deleteAdamById(id);
+         if(success){
+             System.out.println("silindi");
+         }
+        } catch (Exception e) {
+            String message = "Error deleting with id  " + id;
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, message);
+        }
+        if(!success){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Adam with id "+ id+" not found");
+        }
+    }
+
+
+
+
+
+
+   /* @PostMapping("/register")
     public ResponseEntity<Boolean> register(@RequestBody Adam adam) {
 
         System.out.println("postmandan gelen adam  " + adam);
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
-    }
+    }*/
 
 
 }
