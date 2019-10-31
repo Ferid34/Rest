@@ -17,6 +17,7 @@ public interface AdamService {
 
 
     Datatable getDataTable(Datatable datatable);
+    //yeni
 
 
 }
