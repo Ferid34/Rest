@@ -30,9 +30,9 @@ public class AdamReposiotoryImpl implements AdamRepository {
     }
 
     @Override
-    public List<Adam> getAllAdams(int limit, int offset) {
-        Object[] objects=new Object[]{offset,limit};
-        List<Adam> adamList = jdbcTemplate.query(SQLQuery.GET_ALL_ADAMS_LIMIT_OFSET, objects,adamRowMapper);
+    public List<Adam> getAllAdams( int limit, int offset,String search,String sql) {
+        Object[] objects=new Object[]{"%"+search+"%",offset,limit};
+        List<Adam> adamList = jdbcTemplate.query(sql, objects,adamRowMapper);
         return adamList;
     }
 
@@ -79,6 +79,12 @@ public class AdamReposiotoryImpl implements AdamRepository {
     public int getAdamCount() {
         return    jdbcTemplate.queryForObject(SQLQuery.GET_ADAM_COUNT,Integer.class);
 
+    }
+
+    @Override
+    public int getAdamCountFiltered(String filter) {
+        Object [] objects=new Object[]{"%"+filter+"%"};
+        return    jdbcTemplate.queryForObject(SQLQuery.GET_ALL_ADAMS_LIMIT_OFSET_FILTERED_COUNT,objects,Integer.class);
     }
 
 

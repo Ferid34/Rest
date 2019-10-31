@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface AdamRepository {
     List<Adam> getAllAdams();
-    List<Adam> getAllAdams(int limit,int offset);
+    List<Adam> getAllAdams(int limit, int offset,String search,String sql);
     Optional<Adam> getAdamById(long id);
     boolean updateAdamById(Adam adam);
     boolean deleteAdamById(long id);
@@ -15,6 +15,7 @@ public interface AdamRepository {
 
     //-----Datatable-----
     int getAdamCount();
+    int getAdamCountFiltered(String filter);
 
 
 

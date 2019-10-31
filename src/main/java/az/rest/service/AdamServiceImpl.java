@@ -3,10 +3,13 @@ package az.rest.service;
 import az.rest.domain.Adam;
 import az.rest.domain.Datatable;
 import az.rest.repository.AdamRepository;
+import az.rest.repository.SQLQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -43,19 +46,23 @@ public class AdamServiceImpl implements AdamService {
 
     @Override
     public Datatable getDataTable(Datatable datatable) {
-
+        Map<Integer,String> columnMapping=new HashMap<>();
+        columnMapping.put(1,"id");
+        columnMapping.put(2,"name");
+        columnMapping.put(3,"age");
+        String sql= SQLQuery.GET_ALL_ADAMS_LIMIT_OFSET;
+      sql=  sql.replace("{SORT_COLUMN}",columnMapping.get(datatable.getSortColumn()) );
+      sql=  sql.replace("{SORT_DIRECTION}",datatable.getSortDirection());
         //total daat count  umumi   57
         //filtered  count  -implement seaarch data count      seacha uyugungelen datalar  12
         //datasearch result with paging    ilk sehfede gosterielen datalar   10
         //sort column and dir
         int umumiCount = adamRepository.getAdamCount();
         datatable.setRecordsTotal(umumiCount);
-        datatable.setRecordsFiltered(datatable.getRecordsTotal());
+     int filteredCount=adamRepository.getAdamCountFiltered(datatable.getSearch());
+        datatable.setRecordsFiltered(filteredCount);
 
-        List<Adam> adams = adamRepository.getAllAdams(datatable.getLength(),datatable.getStart());
-
-        System.out.println("adam count = " + adams.size());
-        System.out.println("adam list = " + adams);
+        List<Adam> adams = adamRepository.getAllAdams(datatable.getLength(),datatable.getStart(),datatable.getSearch(),sql);
 
         datatable.setData(new Object[adams.size()][4]);
         for (int i = 0; i < adams.size(); i++) {
