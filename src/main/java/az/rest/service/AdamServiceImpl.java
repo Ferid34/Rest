@@ -53,6 +53,10 @@ public class AdamServiceImpl implements AdamService {
         datatable.setRecordsFiltered(datatable.getRecordsTotal());
 
         List<Adam> adams = adamRepository.getAllAdams(datatable.getLength(),datatable.getStart());
+
+        System.out.println("adam count = " + adams.size());
+        System.out.println("adam list = " + adams);
+
         datatable.setData(new Object[adams.size()][4]);
         for (int i = 0; i < adams.size(); i++) {
             datatable.getData()[i][0] = adams.get(i).getId();

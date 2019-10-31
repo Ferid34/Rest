@@ -236,7 +236,7 @@
 
     //Butun adamlari getirir table da gosterir.Wiev e basanda id sibne gore dami detalli gosterir.
     function showAdamList() {
-
+        console.log('show datam list');
         $.ajax({
             url: baseUrl,
             success: function (data) {
@@ -273,7 +273,7 @@
         } );
 
 
-        showAdamList();
+        // showAdamList();
         createDialog();
     });
 
